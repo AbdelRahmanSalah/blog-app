@@ -16,4 +16,4 @@ gulp.task('watch', ['scripts'], () => {
     gulp.watch('**/*.ts', ['scripts']);
 });
 
-gulp.task('run', ['watch']);
+gulp.task('default', ['watch']);
