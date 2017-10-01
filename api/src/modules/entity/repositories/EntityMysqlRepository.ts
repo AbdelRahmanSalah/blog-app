@@ -19,15 +19,19 @@ export class EntityMysqlRepository<T, S extends Primative> implements IEntityRep
       .clone();
   }
 
+  public findOne(column: ColumnValue<T, S>) {
+    return knex(this._table)
+    .select("*")
+    .where(`${column.columnName} = ?`, [column.value])
+    .limit(1)
+    .thenReturn()
+  }
+
   // Add new entity
   public insert(columns: ColumnValue<T, S>[]) {
-    let cols = columns.reduce((acc, next) => {
-      let obj = {}
-      obj[next.columnName] = next.value
-      console.log(obj)
-      return Object.assign(acc, obj) 
-    } , {})
-    console.log(cols)
+    let cols = columns.reduce((acc, next) => 
+      Object.assign(acc, {[next.columnName]: next.value}) 
+     , {})
     return knex(this._table)
       .insert(cols)
       .clone()
