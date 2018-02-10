@@ -9,7 +9,7 @@ import { IO } from '../../../libs/IO';
 
 export class FileService implements IFileService { 
   upload(stream: NodeJS.ReadableStream, fileName: string, _: UserId): WriteStream {
-    let saveTo = path.join((path.join(__dirname, `/../../../../dest/uploads/${fileName}`)))
+    let saveTo = path.join(__dirname, `/../../../../dest/uploads/${fileName}`)
     let fstream = fs.createWriteStream(saveTo) 
     stream.pipe(fstream)
     return fstream    
